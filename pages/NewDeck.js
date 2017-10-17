@@ -6,6 +6,8 @@ import { newDeck } from "../utils/form_metas"
 import MyStepper from "../components/MyStepper"
 import MySlider from "../components/MySlider"
 import SubmitBtn from "../components/SubmitBtn"
+import {addDeck} from "../actions"
+
 
 class NewDeck extends Component {
     state = {
@@ -38,6 +40,7 @@ class NewDeck extends Component {
         console.log(entry)
 
         // Update Redux
+        this.props.addDeck(entry)
 
         this.setState(() => ({ 
             name: "",
@@ -113,6 +116,15 @@ const styles = StyleSheet.create({
     }
   });
 
-export default NewDeck
 
+
+function mapDispatchToProps(dispatch){
+    return{
+        addDeck: (deck) => dispatch(addDeck(deck))
+    }
+
+}
+
+
+export default connect( null, mapDispatchToProps)(NewDeck)
 
