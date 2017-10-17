@@ -25,6 +25,10 @@ class Deck extends Component {
 In the years since </Text>
                 <View style={styles.rules} >
                     <View style={styles.rule}>
+                        <Entypo name='list' size={70} color={green} style={{flex : 1}}/>
+                        <Text style={styles.ruleText}> 10 Questions </Text>
+                    </View>
+                    <View style={styles.rule}>
                         <SimpleLineIcons name='clock' size={70} color={green} style={{flex : 1}} />
                         <Text style={styles.ruleText}> 30 Minutes </Text>
                     </View>
@@ -32,6 +36,7 @@ In the years since </Text>
                         <Ionicons name='ios-speedometer' size={70} color={green} style={{flex : 1}}/>
                         <Text style={styles.ruleText}> 60% to pass </Text>
                     </View>
+                   
                 </View>
                 <View style={styles.actions} >
                     <SubmitBtn onPress={this.onPressStart} color={dark} text="START"/>

@@ -5,7 +5,13 @@ export default function decks(state = {}, action){
         case ADD_DECK:
             return {
                 ...state,
-                [action.deck.name]: action.deck
+                [action.deck.name]: {
+                   ...action.deck,
+                   questions: [
+
+                   ]
+                }
+                
             }
 
         // load deck from AsyncStorage

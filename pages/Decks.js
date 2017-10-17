@@ -66,7 +66,7 @@ function mapStateToProps(state){
     return{
         decks: Object.keys(state).map((key) => ({
             name: key,
-            cards: 0
+            cards: state[key].questions.length
         }))
     }
 

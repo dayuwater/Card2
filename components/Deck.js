@@ -3,12 +3,19 @@ import { View, Text,  StyleSheet, Platform, TouchableOpacity } from 'react-nativ
 import { connect } from 'react-redux'
 import { green, white, secondaryText, light } from '../utils/colors'
 
+gotoDeck = (name) => {
+   
+
+}
+
 export default Deck = ({name, cards}) => (
-    <View style={styles.item}>
-        <Text style={styles.deckName}> {name} </Text>
-        <Text style={styles.deckStatus}> {cards} Cards </Text>
-        
-    </View>
+    <TouchableOpacity onPress={() => this.gotoDeck(name)}>
+        <View style={styles.item}>
+            <Text style={styles.deckName}> {name} </Text>
+            <Text style={styles.deckStatus}> {cards} Cards </Text>
+            
+        </View>
+    </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
