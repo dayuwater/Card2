@@ -11,20 +11,28 @@ class Decks extends Component {
         return <Deck {...item} />
     }
     // This could be rendered as FlatList
-    render(){
+    render() {
+        console.log(this.props.decks.length)
         return (
             <View style={styles.container}>
                 <Text style={styles.title}> My Decks </Text>
-                <FlatList
-                    data = {decks}
-                    renderItem={this.renderItem}
-                />
-                
+                {this.props.decks.length === 0 ?
+                    <Text style={styles.nullText}> There is no deck yet. Click "New Deck" to add a deck </Text>
+                    :
+                    <FlatList
+                        data={this.props.decks}
+                        renderItem={this.renderItem}
+
+                    />
+                }
+
+
             </View>
         )
     }
 }
 
+// mock data, to be removed
 const decks = [
     { name: "Deck 1" , cards: 8},
     { name: "Deck 2" , cards: 9},
@@ -45,10 +53,26 @@ const styles = StyleSheet.create({
       marginBottom: 25,
       marginTop: 15,
       alignSelf:'center'
+  },
+  nullText:{
+      marginLeft:15,
+      marginRight: 15
   }
 
 });
 
-export default Decks
+function mapStateToProps(state){
+    console.log(state)
+    return{
+        decks: Object.keys(state).map((key) => ({
+            name: key,
+            cards: 0
+        }))
+    }
+
+
+}
+
+export default connect(mapStateToProps)(Decks)
 
 
