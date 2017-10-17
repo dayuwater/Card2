@@ -8,11 +8,17 @@ class Decks extends Component {
 
     // TODO: Use data from Redux/AsyncStorage
     renderItem = ({item}) => {
-        return <Deck {...item} />
+        return <Deck {...item} onPress={() => this.gotoDeck(item.name)}/>
     }
+
+    gotoDeck = (name) => {
+        console.log(this.props)
+        this.props.navigation.navigate("Deck",{deckName:name})
+     
+    }
+     
     // This could be rendered as FlatList
     render() {
-        console.log(this.props.decks.length)
         return (
             <View style={styles.container}>
                 <Text style={styles.title}> My Decks </Text>

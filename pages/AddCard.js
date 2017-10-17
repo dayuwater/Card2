@@ -8,6 +8,14 @@ import MyStepper from "../components/MyStepper"
 
 class AddCard extends Component {
 
+    static navigationOptions = ({navigation}) => {
+        const {deckName} = navigation.state.params
+
+        return {
+            title: `Adding cards to ${deckName}`
+        }
+    }
+
     state = {
         question: "",
         answer: "",
@@ -135,7 +143,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   title:{
-    fontSize: 30,
+    fontSize: 25,
     marginBottom: 10
   },
   textInput:{

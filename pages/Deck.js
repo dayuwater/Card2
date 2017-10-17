@@ -7,34 +7,43 @@ import SubmitBtn from '../components/SubmitBtn'
 
 class Deck extends Component {
 
+    static navigationOptions = ({navigation}) => {
+        const {deckName} = navigation.state.params
+
+        return {
+            title: deckName
+        }
+    }
+
     onPressStart = () => {
         alert("You are about to begin a quiz")
     }
 
     onPressAddCard = () => {
-        alert("You are about to add a car")
+        const deckName = this.props.name
+        this.props.navigation.navigate("AddCard", {deckName})
     }
 
 
     render(){
+        const {name, category, description, timeLimit, passingScore, count } = this.props
         return (
             <View style={styles.container}>
-                <Text style={styles.title}> Deck </Text>
-                <Text style={styles.category}> Law </Text>
-                <Text style={styles.description}>This is a translation of an old book—indeed, in Internet time, it is a transla- tion of an ancient text. The first edition of this book was published in 1999. It was written in a very different context, and, in many ways, it was written in opposition to that context. As I describe in the first chapter, the dominant idea among those who raved about cyberspace then was that cyberspace was beyond the reach of real-space regulation. Governments couldn’t touch life online. And hence, life online would be different, and separate, from the dynamic of life offline. Code v1 was an argument against that then common view.
-In the years since </Text>
+                <Text style={styles.title}> {name} </Text>
+                <Text style={styles.category}> {category} </Text>
+                <Text style={styles.description}> {description} </Text>
                 <View style={styles.rules} >
                     <View style={styles.rule}>
                         <Entypo name='list' size={70} color={green} style={{flex : 1}}/>
-                        <Text style={styles.ruleText}> 10 Questions </Text>
+                        <Text style={styles.ruleText}> {count} Questions </Text>
                     </View>
                     <View style={styles.rule}>
                         <SimpleLineIcons name='clock' size={70} color={green} style={{flex : 1}} />
-                        <Text style={styles.ruleText}> 30 Minutes </Text>
+                        <Text style={styles.ruleText}> {timeLimit} Minutes </Text>
                     </View>
                     <View style={styles.rule}>
                         <Ionicons name='ios-speedometer' size={70} color={green} style={{flex : 1}}/>
-                        <Text style={styles.ruleText}> 60% to pass </Text>
+                        <Text style={styles.ruleText}> {passingScore}% to pass </Text>
                     </View>
                    
                 </View>
@@ -106,4 +115,15 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Deck
+
+function mapStateToProps(state, {navigation}){
+    const {deckName} = navigation.state.params
+    const deck = state[deckName]
+    return {
+        ...deck,
+        count: deck.questions.length
+    }
+
+
+}
+export default connect(mapStateToProps)(Deck)

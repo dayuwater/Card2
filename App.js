@@ -30,13 +30,7 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   },
-  Deck: {
-    screen: Deck,
-    navigationOptions: {
-      tabBarLabel: 'Deck',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
-    },
-  },
+  
   Quiz: {
     screen: Quiz,
     navigationOptions: {
@@ -52,13 +46,7 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
   },
-  AddCard: {
-    screen: AddCard,
-    navigationOptions: {
-      tabBarLabel: 'Add Card',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
-    }
-  },
+  
   
 }, {
   navigationOptions: {
@@ -82,20 +70,29 @@ const Tabs = TabNavigator({
 
 // TODO: Add this back after UI design for stack navigators
 
-// const MainNavigator = StackNavigator({
-//   Home: {
-//     screen: Tabs,
-//   },
-//   EntryDetail: {
-//     screen: EntryDetail,
-//     navigationOptions: {
-//       headerTintColor: white,
-//       headerStyle: {
-//         backgroundColor: green
-//       }
-//     }
-//   }
-// })
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  }
+})
 
 function MyStatusBar ({backgroundColor, ...props}) {
   return (
@@ -125,7 +122,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={{flex:1}}>
           <MyStatusBar backgroundColor={green} barStyle="light-content" />
-          <Tabs /> 
+          <MainNavigator /> 
         </View>
       </Provider>
       
