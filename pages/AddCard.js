@@ -5,6 +5,8 @@ import { white, green, orange } from '../utils/colors'
 import { newCard } from "../utils/form_metas"
 import SubmitBtn from "../components/SubmitBtn"
 import MyStepper from "../components/MyStepper"
+import {addCard} from "../actions"
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 class AddCard extends Component {
 
@@ -69,9 +71,10 @@ class AddCard extends Component {
     submit = () => {
         // Assign a key to submission
         const entry = this.state
-        console.log(entry)
+        const {deckName} = this.props
 
         // Update Redux
+        this.props.addCard(entry, deckName)
 
         this.setState(() => ({ 
             question: "",
@@ -81,7 +84,9 @@ class AddCard extends Component {
             timeLimit: 90
         }))
 
-        // Redirect to Home
+        // tell user the card is added
+        // this.refs.toast.show('Question added. You may add more cards to the deck');
+        alert('Question added. You may add more cards to the deck')
 
         // Update AsyncStorage
 
@@ -99,7 +104,7 @@ class AddCard extends Component {
         const {difficulty, timeLimit} = this.state
         return (
             <View style={styles.container}>
-
+                <Toast ref="toast"/>
                 {Object.keys(metaInfo).map((item) => {
                     
                     const { title, type, unit, prompt, ...rest} = metaInfo[item]
@@ -125,8 +130,9 @@ class AddCard extends Component {
 
                 })}
 
-
+                
                 <SubmitBtn onPress={this.submit} />
+                
             </View>
         )
     }
@@ -155,6 +161,20 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddCard
+function mapStateToProps(state, {navigation}){
+    const {deckName} = navigation.state.params
+    return {
+        deckName
+    }
+
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        addCard: (card, deckName) => dispatch(addCard({card, deckName}))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCard)
 
 

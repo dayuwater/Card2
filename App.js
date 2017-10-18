@@ -31,13 +31,7 @@ const Tabs = TabNavigator({
     },
   },
   
-  Quiz: {
-    screen: Quiz,
-    navigationOptions: {
-      tabBarLabel: 'Quiz',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
-    }
-  },
+  
   // This will be in final
   NewDeck: {
     screen: NewDeck,
@@ -91,7 +85,17 @@ const MainNavigator = StackNavigator({
         backgroundColor: green
       }
     }
-  }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  },
+
 })
 
 function MyStatusBar ({backgroundColor, ...props}) {

@@ -16,7 +16,8 @@ class Deck extends Component {
     }
 
     onPressStart = () => {
-        alert("You are about to begin a quiz")
+        const deckName = this.props.name
+        this.props.navigation.navigate("Quiz", {deckName})
     }
 
     onPressAddCard = () => {
@@ -48,7 +49,9 @@ class Deck extends Component {
                    
                 </View>
                 <View style={styles.actions} >
-                    <SubmitBtn onPress={this.onPressStart} color={dark} text="START"/>
+                    { count === 0 || 
+                    <SubmitBtn onPress={this.onPressStart} color={dark} text="START"/>}
+                    
                     <SubmitBtn onPress={this.onPressAddCard} color={orange} text="ADD CARD"/>
                 </View>
 

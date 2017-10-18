@@ -1,4 +1,5 @@
 export const ADD_DECK = "ADD_DECK"
+export const ADD_CARD = "ADD_CARD"
 
 export function addDeck(deck){
     return{
@@ -10,3 +11,10 @@ export function addDeck(deck){
 // load decks from AsyncStorage before program runs
 
 // add a card to a deck
+export function addCard({card, deckName}){
+    return{
+        type: ADD_CARD,
+        card,
+        deckName
+    }
+}

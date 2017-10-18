@@ -6,11 +6,17 @@ import SubmitBtn from "../components/SubmitBtn"
 
 class Quiz extends Component {
 
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: "Quiz"
+        }
+    }
+
+
     state = {
         currentQuestionIndex: 0,
         currentScore: 0,
         mode: "question",
-        questions: quizData
 
     }
 
@@ -24,10 +30,10 @@ class Quiz extends Component {
     answerPressed = (correct) => {
         // increment the score and question count
         const ind = this.state.currentQuestionIndex
-        const total = this.state.questions.length
-        const difficulty = this.state.questions[ind].difficulty
+        const total = this.props.questions.length
+        const difficulty = this.props.questions[ind].difficulty
         let score = this.state.currentScore
-
+        console.log(total)
 
         if(correct){
             score += difficulty
@@ -59,7 +65,8 @@ class Quiz extends Component {
 
     
     render(){
-        const {currentQuestionIndex, currentScore, mode, questions} = this.state
+        const {currentQuestionIndex, currentScore, mode} = this.state
+        const {questions} = this.props
         const currentQuestion = questions[currentQuestionIndex]
         const numberofQuestions = questions.length
 
@@ -196,6 +203,15 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Quiz
+function mapStateToProps(state, {navigation}){
+    console.log(navigation.state)
+    const {deckName} = navigation.state.params
+    return{
+        questions: state[deckName].questions
+    }
+
+}
+
+export default connect(mapStateToProps)(Quiz)
 
 
