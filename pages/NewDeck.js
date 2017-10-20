@@ -7,6 +7,7 @@ import MyStepper from "../components/MyStepper"
 import MySlider from "../components/MySlider"
 import SubmitBtn from "../components/SubmitBtn"
 import {addDeck} from "../actions"
+import * as Storage from "../utils/storage"
 
 
 class NewDeck extends Component {
@@ -39,22 +40,40 @@ class NewDeck extends Component {
         const entry = this.state
         console.log(entry)
 
-        // Update Redux
-        this.props.addDeck(entry)
-
-        this.setState(() => ({ 
-            name: "",
-            description: "",
-            category: "",
-            passingScore: 60,
-            timeLimit: 30
-        }))
-
-        // Redirect to Home
-
         // Update AsyncStorage
+        // check if the deck uses a name that is already in the storage
+        // prompt user to change the name if needed
+        Storage.saveDeckTitle(entry).then(res => {
+            if(!res){
+                reject()
+            }
 
-        // Clear old notifications, create a new one
+        }).then(_ => {
+            // Update Redux
+            this.props.addDeck(entry)
+        
+            this.setState(() => ({ 
+                name: "",
+                description: "",
+                category: "",
+                passingScore: 60,
+                timeLimit: 30
+            }))
+    
+            // Redirect to Home
+            this.props.navigation.navigate("Home")
+    
+            // Clear old notifications, create a new one
+
+        }).catch(_ => {
+            alert("This deck name is already used. Please use another name")
+            this.setState(() => ({ 
+                ...this.state,
+                name: "",
+            }))
+        })
+
+        
         
     }
 

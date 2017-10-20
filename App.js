@@ -14,6 +14,8 @@ import {Ionicons, FontAwesome, Entypo} from '@expo/vector-icons'
 import { Constants } from 'expo'
 import reducer from './reducers'
 import devToolsEnhancer from 'remote-redux-devtools';
+import * as Storage from "./utils/storage"
+import {loadDecks} from './actions/index.js'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__ || compose
@@ -119,6 +121,20 @@ const logger = store => next => action => {
 const store = createStore(reducer, composeEnhancers(applyMiddleware(logger)))
 
 export default class App extends React.Component {
+
+  componentDidMount(){
+    // init the decks from storage if this is the first run of the program 
+    Storage.initStorage()
+    // grab the decks from storage into Redux
+    Storage.getDecks().then(result => {
+      console.log(result)
+      store.dispatch(loadDecks(result))
+    })
+    
+    
+
+
+  }
 
 
   render() {

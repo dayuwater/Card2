@@ -7,6 +7,7 @@ import SubmitBtn from "../components/SubmitBtn"
 import MyStepper from "../components/MyStepper"
 import {addCard} from "../actions"
 import Toast, {DURATION} from 'react-native-easy-toast'
+import * as Storage from '../utils/storage'
 
 class AddCard extends Component {
 
@@ -71,27 +72,32 @@ class AddCard extends Component {
     submit = () => {
         // Assign a key to submission
         const entry = this.state
-        const {deckName} = this.props
-
-        // Update Redux
-        this.props.addCard(entry, deckName)
-
-        this.setState(() => ({ 
-            question: "",
-            answer: "",
-            category: "",
-            difficulty: 5,
-            timeLimit: 90
-        }))
-
-        // tell user the card is added
-        // this.refs.toast.show('Question added. You may add more cards to the deck');
-        alert('Question added. You may add more cards to the deck')
+        const { deckName } = this.props
 
         // Update AsyncStorage
+        Storage.addCardToDeck({ deckName, card: entry }).then(_ => {
+            // Update Redux
+            this.props.addCard(entry, deckName)
 
-        // Clear old notifications, create a new one
-        
+            this.setState(() => ({
+                question: "",
+                answer: "",
+                category: "",
+                difficulty: 5,
+                timeLimit: 90
+            }))
+
+            // tell user the card is added
+            // this.refs.toast.show('Question added. You may add more cards to the deck');
+            alert('Question added. You may add more cards to the deck')
+            // Clear old notifications, create a new one
+
+        }).catch(_ => {
+            alert("Sorry, the card is not successfully added. Please check if there is aviliable space on your phone.")
+        })
+
+
+
     }
 
     

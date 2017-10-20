@@ -124,7 +124,7 @@ function mapStateToProps(state, {navigation}){
     const deck = state[deckName]
     return {
         ...deck,
-        count: deck.questions.length
+        count: deck.questions ? deck.questions.length : 0
     }
 
 

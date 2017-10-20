@@ -1,4 +1,4 @@
-import {ADD_DECK, ADD_CARD} from "../actions"
+import {ADD_DECK, ADD_CARD, LOAD_DECKS} from "../actions"
 
 
 export default function decks(state = {}, action){
@@ -16,6 +16,8 @@ export default function decks(state = {}, action){
             }
 
         // load deck from AsyncStorage
+        case LOAD_DECKS:
+            return action.decks
 
         case ADD_CARD:
             return{
