@@ -19,11 +19,14 @@ class Quiz extends Component {
         mode: "question",
         opacity: new Animated.Value(0),
         
+        
 
     }
 
     componentDidMount(){
+       
         Animated.timing(this.state.opacity,{ toValue:1, duration: 1000}).start()
+
     }
 
     componentDidUpdate(prevProps, prevState){
@@ -36,10 +39,13 @@ class Quiz extends Component {
     
 
     showAnswer = () => {
-        this.setState((state) => ({
-            ...state,
-            mode: "answer"
-        }))
+        Animated.timing(this.state.opacity, {toValue:0, duration:1000}).start(() => {
+            this.setState((state) => ({
+                ...state,
+                mode: "answer"
+            }))
+        })
+        
     }
 
     answerPressed = (correct) => {
