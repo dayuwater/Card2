@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,  StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text,  StyleSheet, Platform, TouchableOpacity, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { white, green, light, secondaryText, orange, dark} from '../utils/colors'
 import SubmitBtn from "../components/SubmitBtn"
@@ -17,8 +17,23 @@ class Quiz extends Component {
         currentQuestionIndex: 0,
         currentScore: 0,
         mode: "question",
+        opacity: new Animated.Value(0),
+        
 
     }
+
+    componentDidMount(){
+        Animated.timing(this.state.opacity,{ toValue:1, duration: 1000}).start()
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        const {mode} = prevState
+        if(mode === "answer"){
+            Animated.timing(this.state.opacity,{ toValue:1, duration: 1000}).start()
+        }
+    }
+
+    
 
     showAnswer = () => {
         this.setState((state) => ({
@@ -46,9 +61,10 @@ class Quiz extends Component {
                 ...state,
                 mode: "question",
                 currentQuestionIndex : ind + 1,
-                currentScore: score
+                currentScore: score,
+                opacity: new Animated.Value(0)
             }))
-
+           
         }
         // if we are done
         else{
@@ -65,7 +81,7 @@ class Quiz extends Component {
 
     
     render(){
-        const {currentQuestionIndex, currentScore, mode} = this.state
+        const {currentQuestionIndex, currentScore, mode, opacity} = this.state
         const {questions} = this.props
         const currentQuestion = questions[currentQuestionIndex]
         const numberofQuestions = questions.length
@@ -96,11 +112,11 @@ class Quiz extends Component {
                 </View>
 
                 {mode === "question" ? 
-                    <View style={styles.questionArea}>
+                    <Animated.View style={[styles.questionArea, {opacity}]}>
                         <Text style={styles.question}> {currentQuestion.question} </Text>
                         <Text style={styles.category}> {currentQuestion.category} </Text>
                         <Text style={styles.category}> Difficulty = {currentQuestion.difficulty} </Text>
-                    </View>
+                    </Animated.View>
                 :
                     <View style={styles.questionArea}>
                         <Text style={styles.question}> Answer </Text>
