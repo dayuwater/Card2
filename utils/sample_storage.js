@@ -13,7 +13,7 @@ export const sampleDecks = {
       category: 'Front-end Frameworks',
       description: 'Foundamental questions for React',
       timeLimit: 1,
-      passingScore: 100,
+      passingScore: 50,
       questions: [
         {
           question: 'What is React?',
@@ -36,7 +36,7 @@ export const sampleDecks = {
       category: 'Programming Languages',
       description: "Some fun and perhaps unknown facts of JavaScript",
       timeLimit : 15,
-      passingScore: 80,
+      passingScore: 40,
       questions: [
         {
           question: 'What is a closure?',
@@ -173,7 +173,7 @@ export const sampleDecks = {
         category: "Middle School Algebra",
         description: "How to manipulate 3 identical numbers to 6.",
         timeLimit: 15,
-        passingScore: 80,
+        passingScore: 50,
         questions:[
             {
                 question: "1 ? 1 ? 1 = 6",
@@ -252,7 +252,7 @@ export const sampleDecks = {
         category:"What happens when 1 + 1?",
         description: "1 + 1 under different circumstances",
         timeLimit: 10,
-        passingScore:70,
+        passingScore:50,
         questions: [
             {question: "1+1=?", answer:"2", category:"Grade 1 math", difficulty:1, timeLimit:30},
             {question: "1+1=?", answer:"10", category:"Simple Computer Science", difficulty:2, timeLimit:30},
@@ -270,7 +270,7 @@ export const sampleDecks = {
         name: "Calculate without calculator",
         description: "Use some techniques to calculate the following without a calculator",
         timeLimit:90,
-        passingScore:100,
+        passingScore:30,
         questions:[
             {question: "1+1=?", answer:"2", category:"Grade 1 math", difficulty:1, timeLimit:30},
             {question: "17+15=?", answer:"32", category:"Grade 2 math", difficulty:2, timeLimit:30},

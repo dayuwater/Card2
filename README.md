@@ -1,3 +1,43 @@
+## Instructions
+`yarn install` ->  `yarn start`. You can possibly use `npm` too, but it is not guaranteed to work.
+
+When `yarn start` finished initializing, press **i** to start your iOS emulator (I tested my project on this). You may also press **a** to start your Android emulator. 
+
+You can also run this project on your real devices. Please see the attached instruction from `create-react-native-app` for more details on how to run the project on real devices. There will be instructions on how to set up your devices when you run `yarn start`, including installing required App and scanning QR code.
+
+Also refer to the attached document if you need some troubleshooting.
+
+
+
+## Setting up your development environment
+Because this project only runs on Android or iOS, make sure you have devices or emulators running on Android or iOS.
+
+I developed and tested this project using **iOS emulator**, so it works best on iOS devices. It should be functional on Android devices too, but the visuals, user experiences and performance might not be ideal.
+
+## Important: Major tweaks 
+- Instead of displaying the number of questions remaining, this project displays "index of current question/total questions". Therefore, the number of question remaining is simply (total - current).
+- Scoring system:
+  - Instead of 1 point per question, each question worth the amount of points same as its difficulty level. Therefore, a question with a difficulty level of 5 worth 5 points
+  - There is a passing score for each deck: 
+    - If you fail the test, your final score = your score / passing score
+    - If you pass the test, your final score = 100 + (your score - passing score) / (total score - passing score)
+    - Therefore, if you get more than 100, you pass the test. The maximum final score you can get is 200.
+
+- By default there is no pre-populated deck. But you can use `sample_storage.js` to get some sample decks.
+- Finally ( and obviously), you cannot start a quiz on empty decks. 
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).

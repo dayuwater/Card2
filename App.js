@@ -130,6 +130,7 @@ export default class App extends React.Component {
       console.log(result)
       store.dispatch(loadDecks(result))
     })
+    Storage.setLocalNotification()
     
     
 

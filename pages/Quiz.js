@@ -3,6 +3,8 @@ import { View, Text,  StyleSheet, Platform, TouchableOpacity, Animated } from 'r
 import { connect } from 'react-redux'
 import { white, green, light, secondaryText, orange, dark} from '../utils/colors'
 import SubmitBtn from "../components/SubmitBtn"
+import {Entypo} from "@expo/vector-icons"
+import * as Storage from '../utils/storage'
 
 class Quiz extends Component {
 
@@ -18,6 +20,8 @@ class Quiz extends Component {
         currentScore: 0,
         mode: "question",
         opacity: new Animated.Value(0),
+        passingScore : 0,
+        totalScore: 0
         
         
 
@@ -26,6 +30,15 @@ class Quiz extends Component {
     componentDidMount(){
        
         Animated.timing(this.state.opacity,{ toValue:1, duration: 1000}).start()
+        // calculate the total score possible
+        const totalScore = this.props.questions.reduce((p, c) => (p + c.difficulty), 0)
+        const passingScore = totalScore * this.props.passingPct / 100
+        this.setState((state) => ({
+            ...state,
+            totalScore,
+            passingScore
+
+        }))
 
     }
 
@@ -81,29 +94,78 @@ class Quiz extends Component {
                 currentScore: score
             }))
 
+            // if the user passed the quiz, clear the notification, set a new one for tomorrow
+            if(score >= this.state.passingScore){
+                Storage.clearLocalNotification().then(Storage.setLocalNotification)
+            }
+
+
         }
+
+    }
+
+    retry = () => {
+        this.setState((state) => ({
+            currentQuestionIndex: 0,
+            currentScore: 0,
+            mode: "question",
+            opacity: new Animated.Value(1),
+        }))
+        
+
+    }
+
+    goBack = () => {
+        const deckName = this.props.deckName
+        this.props.navigation.navigate("Deck", {deckName})
 
     }
 
     
     render(){
-        const {currentQuestionIndex, currentScore, mode, opacity} = this.state
+        const {currentQuestionIndex, currentScore, mode, opacity, totalScore, passingScore} = this.state
         const {questions} = this.props
         const currentQuestion = questions[currentQuestionIndex]
         const numberofQuestions = questions.length
 
+       
+
+
+
         // handle final screen here
         if(this.state.mode === "finished"){
-            console.log("finsihed")
+            let score = 0
+            if(currentScore < passingScore){
+                score = currentScore / passingScore * 100
+            }
+            else{
+                score = 100 + (currentScore - passingScore) / (totalScore - passingScore) * 100
+            }
             return(
                 <View style={styles.finalContainer}>
                     <View>
                         <Text style={styles.question}> Your final score is </Text>
-                        <Text style={styles.score}> {currentScore} </Text>
+                        <Text style={styles.score}> {Math.round(score)} </Text>
                     </View>
+                    { currentScore < passingScore ?
+                    (
+                    
+                        <Entypo name='emoji-sad' size={70} color={orange} />
+                        
+                    )
+                        :
+                    (
+                       
+                        <Entypo name='emoji-happy' size={70} color={green} />
+                        
+                    )
+
+                    }
+                   
+
                     <View>
-                        <SubmitBtn style={styles.finalButtons} text="Retry" color={green} />
-                        <SubmitBtn style={styles.finalButtons} text="Go Back" color={orange} />
+                        <SubmitBtn style={styles.finalButtons} text="Restart Quiz" color={green} onPress={this.retry} />
+                        <SubmitBtn style={styles.finalButtons} text="Back To Deck" color={orange} onPress={this.goBack}/>
                     </View>
                 </View>
             )
@@ -114,7 +176,11 @@ class Quiz extends Component {
                 <View style={styles.statusBar}>
                     <Text style={styles.statusText}> {currentQuestionIndex + 1} / {numberofQuestions} </Text>
                     <Text style={styles.statusText}> {currentQuestion.timeLimit} seconds </Text>
-                    <Text style={styles.statusText}> {currentScore} / 300 </Text>
+                    {currentScore < passingScore ? 
+                    <Text style={[styles.statusText, {color:orange}]}> {currentScore} / {totalScore} </Text> :
+                    <Text style={[styles.statusText, {color:dark}]}> {currentScore} / {totalScore} </Text> 
+                    }
+                    
                 </View>
 
                 {mode === "question" ? 
@@ -229,7 +295,9 @@ function mapStateToProps(state, {navigation}){
     console.log(navigation.state)
     const {deckName} = navigation.state.params
     return{
-        questions: state[deckName].questions
+        deckName,
+        questions: state[deckName].questions,
+        passingPct: state[deckName].passingScore
     }
 
 }

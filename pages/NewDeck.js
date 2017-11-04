@@ -16,7 +16,8 @@ class NewDeck extends Component {
         description: "",
         category: "",
         passingScore: 60,
-        timeLimit: 30
+        timeLimit: 30,
+        questions: []
         
     }
 
@@ -44,6 +45,7 @@ class NewDeck extends Component {
         // check if the deck uses a name that is already in the storage
         // prompt user to change the name if needed
         Storage.saveDeckTitle(entry).then(res => {
+            console.log(res)
             if(!res){
                 reject()
             }
@@ -57,7 +59,8 @@ class NewDeck extends Component {
                 description: "",
                 category: "",
                 passingScore: 60,
-                timeLimit: 30
+                timeLimit: 30,
+                questions: []
             }))
     
             // Redirect to Home
