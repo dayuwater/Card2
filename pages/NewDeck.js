@@ -73,7 +73,7 @@ class NewDeck extends Component {
             }))
     
             // Redirect to Home
-            this.props.navigation.navigate("Home")
+            this.props.navigation.navigate("Deck", {deckName:name})
     
             // Clear old notifications, create a new one
 

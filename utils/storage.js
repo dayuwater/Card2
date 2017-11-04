@@ -107,7 +107,7 @@ export function setLocalNotification() {
             
             if (data === null) {
                 console.log(data === null)
-                Permissions.askAsync(Permissions.CAMERA)
+                Permissions.askAsync(Permissions.NOTIFICATIONS)
                     .then(({ status }) => {
                         console.log(status)
                         // change back to 'granted' later
@@ -116,8 +116,8 @@ export function setLocalNotification() {
                             console.log("setting notifications")
                             let tomorrow = new Date()
                             tomorrow.setDate(tomorrow.getDate() + 1)
-                            tomorrow.setHours(20)
-                            tomorrow.setMinutes(0)
+                            tomorrow.setHours(18)
+                            tomorrow.setMinutes(32)
 
                             Notifications.scheduleLocalNotificationAsync(
                                 createNotification(),
@@ -128,6 +128,9 @@ export function setLocalNotification() {
                             )
 
                             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+                        }
+                        else if(status === 'denied'){
+                            alert("We are attempting to set you up an reminder, but it seems like your device rejected us. Please go to your settings and enable notifications.")
                         }
                     })
             }

@@ -94,8 +94,11 @@ class Quiz extends Component {
                 currentScore: score
             }))
 
+            
+
             // if the user passed the quiz, clear the notification, set a new one for tomorrow
             if(score >= this.state.passingScore){
+                alert("Congrats!! You passed the test. Remember to come back tomorrow. Good good study, day day up!")
                 Storage.clearLocalNotification().then(Storage.setLocalNotification)
             }
 
