@@ -14,7 +14,7 @@ Because this project only runs on Android or iOS, make sure you have devices or 
 
 I developed and tested this project using **iOS emulator**, so it works best on iOS devices. It should be functional on Android devices too, but the visuals, user experiences and performance might not be ideal.
 
-## Important: Major tweaks 
+## Important to Graders: Major tweaks 
 - Instead of displaying the number of questions remaining, this project displays "index of current question/total questions". Therefore, the number of question remaining is simply (total - current).
 - Scoring system:
   - Instead of 1 point per question, each question worth the amount of points same as its difficulty level. Therefore, a question with a difficulty level of 5 worth 5 points
