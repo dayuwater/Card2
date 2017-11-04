@@ -74,6 +74,15 @@ class AddCard extends Component {
         const entry = this.state
         const { deckName } = this.props
 
+        // validate entry
+        // Question and Answer are required. Category is optional
+        const {question, answer} = this.state
+        if(!question || !answer){
+            alert("Your question must have a name and answer")
+            return
+        }
+
+
         // Update AsyncStorage
         Storage.addCardToDeck({ deckName, card: entry }).then(_ => {
             // Update Redux

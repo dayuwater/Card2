@@ -42,7 +42,13 @@ class NewDeck extends Component {
         console.log(entry)
 
         // validate entry
-        
+        // only name is required. All the other fields are optional
+        // name is also used as the deck id
+        const {name} = this.state
+        if(!name){
+            alert("You cannot add a deck with empty title")
+            return
+        }
 
         // Update AsyncStorage
         // check if the deck uses a name that is already in the storage

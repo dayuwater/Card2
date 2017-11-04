@@ -6,13 +6,13 @@ import { green, light, dark, white, primaryText, secondaryText, orange } from '.
 export function newCard(metric) {
     const info = {
         question: {
-            title: "Question",
+            title: "Question*",
             prompt: "Enter your question here",
             type: "text"
 
         },
         answer: {
-            title: "Answer",
+            title: "Answer*",
             prompt: "Enter your answer here",
             type: "text"
 
@@ -52,7 +52,7 @@ export function newCard(metric) {
 export function newDeck(metric) {
     const info = {
         name: {
-            title: "Name",
+            title: "Name*",
             prompt: "Enter your deck name here",
             type: "text"
 

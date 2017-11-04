@@ -24,6 +24,8 @@ I developed and tested this project using **iOS emulator**, so it works best on 
     - Therefore, if you get more than 100, you pass the test. The maximum final score you can get is 200.
 
 - By default there is no pre-populated deck. But you can use `sample_storage.js` to get some sample decks.
+- When users add a new deck, it will redirect to Home page. However, when users add a new card, it will just alert users that the card is added without redirecting. This would allow users to add multiple cards in one setting.
+- You **cannot** have two **decks** with same title, but you **can** have two **questions** with same title.
 - Finally ( and obviously), you cannot start a quiz on empty decks. Therefore, there is no "Start" button in this case.
 
 
