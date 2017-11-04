@@ -24,7 +24,7 @@ I developed and tested this project using **iOS emulator**, so it works best on 
     - Therefore, if you get more than 100, you pass the test. The maximum final score you can get is 200.
 
 - By default there is no pre-populated deck. But you can use `sample_storage.js` to get some sample decks.
-- Finally ( and obviously), you cannot start a quiz on empty decks. 
+- Finally ( and obviously), you cannot start a quiz on empty decks. Therefore, there is no "Start" button in this case.
 
 
 

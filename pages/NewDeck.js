@@ -41,6 +41,9 @@ class NewDeck extends Component {
         const entry = this.state
         console.log(entry)
 
+        // validate entry
+        
+
         // Update AsyncStorage
         // check if the deck uses a name that is already in the storage
         // prompt user to change the name if needed
